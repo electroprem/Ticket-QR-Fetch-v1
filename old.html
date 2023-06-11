@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Realtime Data from Firebase</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Sr No</th>
+        <th>Unique ID</th>
+        <th>ID</th>
+        <th>Order Number</th>
+      </tr>
+    </thead>
+    <tbody id="data-table"></tbody>
+  </table>
+
+  <script>
+    // Initialize Firebase
+    var firebaseConfig = {
+        apiKey: "AIzaSyCKvGUZiIhsigi-SEOsGK6-vUmcA5qcJu0",
+  authDomain: "esp32-demo-test-600f6.firebaseapp.com",
+  databaseURL: "https://esp32-demo-test-600f6-default-rtdb.firebaseio.com",
+  projectId: "esp32-demo-test-600f6",
+  storageBucket: "esp32-demo-test-600f6.appspot.com",
+  messagingSenderId: "1015960027724",
+  appId: "1:1015960027724:web:379b00131438edf17c6ae9",
+  measurementId: "G-5WSL062SV2"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Get a reference to the database
+    var database = firebase.database();
+
+    // Get a reference to the data you want to listen to
+    var dataRef = database.ref("Unique_id");
+
+    // Create a counter for Sr No
+    var count = 1;
+
+    // Listen for realtime updates
+    dataRef.on("child_added", function(snapshot) {
+      var uniqueId = snapshot.key;
+      var data = snapshot.val();
+
+      // Create a new table row for each unique ID
+      var row = document.createElement("tr");
+      
+      // Create cells for Sr No, Unique ID, ID, and Order Number
+      var srNoCell = document.createElement("td");
+      var uniqueIdCell = document.createElement("td");
+      var idCell = document.createElement("td");
+      var orderNumberCell = document.createElement("td");
+      
+      // Set the values for each cell
+      srNoCell.textContent = count++;
+      uniqueIdCell.textContent = uniqueId;
+      idCell.textContent = data.id;
+      orderNumberCell.textContent = data.order_number;
+      
+      // Append the cells to the table row
+      row.appendChild(srNoCell);
+      row.appendChild(uniqueIdCell);
+      row.appendChild(idCell);
+      row.appendChild(orderNumberCell);
+      
+      // Append the new row to the table body
+      var tableBody = document.getElementById("data-table");
+      tableBody.appendChild(row);
+    });
+  </script>
+</body>
+</html>

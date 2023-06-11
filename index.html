@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <title>Firebase RTDB Fetch</title>
+<head>
+    
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+  <h1>Firebase Realtime DB Entries</h1>
+
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Enter search value">
+    <select id="search-option">
+      <option value="unique-id">Unique ID</option>
+      <option value="id">ID</option>
+      <option value="order-number">Order Number</option>
+    </select>
+    <button id="search-button">Search</button>
+
+  </div>
+  <p id="search-result-message"></p>
+  <div class="table-container">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Sr No</th>
+        <th>Unique ID</th>
+        <th>ID</th>
+        <th>Order Number</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+  </div>
+
+  <p id="no-data-message" class="hidden">No data available.</p>
+
+  <footer class="footer">
+    <p>Developed by <a href="https://electroprem.github.io/prem-mistry/">Prem Mistry</a></p> <p> Contact Us : <a href="https://electrocaps.me">ElectroCaps</a></p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
